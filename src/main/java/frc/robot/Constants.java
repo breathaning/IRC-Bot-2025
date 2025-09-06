@@ -20,10 +20,17 @@ public final class Constants {
     public static final int kLeftMotorId = 11;
     public static final int kRightMotorId = 4;
   }
+  public static class GamepadConstants {
+    // logitech and xbox controllers have different mappings
+    public static final int kRightBumper = 6;
+    public static final int kRightTrigger = 8;
+    public static final int kLeftBumper = 5;
+    public static final int kLeftTrigger = 7;
+    public static final int kLeftJoystickAxis = 1; // 1 on logitech and xbox controller
+    public static final int kRightJoystickAxis = 5; // 3 on logitech controller, 5 on xbox controller
+  }
   public static class DriveConstants {
     public static final double kJoystickDeadzone = 0.25;
-    public static final int kJoystickLeftMotorAxisIndex = 1;
-    public static final int kJoystickRightMotorAxisIndex = 3;
     public static final double kMotorWheelSpeedScalar = 0.5;
     public static final boolean kMotorSpeedInverse = false;
   }

@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import frc.robot.Constants.GamepadConstants;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.Constants.ShooterConstants.FeederState;
 import frc.robot.Constants.ShooterConstants.ShooterState;
@@ -12,12 +13,12 @@ import frc.robot.commands.Drive;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.SetFeederState;
 import frc.robot.commands.SetShooterState;
+import frc.robot.lib.FluentTrigger;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.Feeder;
 import frc.robot.subsystems.Shooter;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
@@ -78,11 +79,28 @@ public class RobotContainer {
     // cancelling on release.
     m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
 
-    primaryController.button(6).whileTrue(new SetShooterState(shooter, ShooterState.SHOOT)); // right bumper
-    primaryController.button(7).whileTrue(new ParallelCommandGroup(
-        new SetShooterState(shooter, ShooterState.INTAKE),
-        new SetFeederState(feeder, FeederState.INTAKE))); // left trigger
-    primaryController.button(5).whileTrue(new SetFeederState(feeder, FeederState.SHOOT)); // left bumper
+    // primaryController.button(6).whileTrue(new SetShooterState(shooter, ShooterState.SHOOT)); // right bumper
+    // primaryController.button(7).whileTrue(new ParallelCommandGroup(
+    //     new SetShooterState(shooter, ShooterState.INTAKE),
+    //     new SetFeederState(feeder, FeederState.INTAKE))); // left trigger
+    // primaryController.button(5).whileTrue(new SetFeederState(feeder, FeederState.SHOOT)); // left bumper
+
+    new FluentTrigger(
+        new SetShooterState(shooter, ShooterState.IDLE),
+        new FluentTrigger.CommandBind[] {
+            new FluentTrigger.CommandBind(primaryController.button(GamepadConstants.kRightBumper),
+                new SetShooterState(shooter, ShooterState.SHOOT)),
+            new FluentTrigger.CommandBind(primaryController.button(GamepadConstants.kLeftTrigger),
+                new SetShooterState(shooter, ShooterState.INTAKE)),
+        });
+    new FluentTrigger(
+        new SetFeederState(feeder, FeederState.IDLE),
+        new FluentTrigger.CommandBind[] {
+            new FluentTrigger.CommandBind(primaryController.button(GamepadConstants.kLeftBumper),
+                new SetFeederState(feeder, FeederState.SHOOT)),
+            new FluentTrigger.CommandBind(primaryController.button(GamepadConstants.kLeftTrigger),
+                new SetFeederState(feeder, FeederState.INTAKE)),
+        });
   }
 
   /**
