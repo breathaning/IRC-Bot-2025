@@ -79,20 +79,14 @@ public class RobotContainer {
 
     new FluentTrigger(
         new SetShooterState(shooter, ShooterState.IDLE),
-        new FluentTrigger.CommandBind[] {
-            new FluentTrigger.CommandBind(primaryController.button(OperatorConstants.kGamepadRightBumper),
-                new SetShooterState(shooter, ShooterState.SHOOT)),
-            new FluentTrigger.CommandBind(primaryController.button(OperatorConstants.kGamepadLeftTrigger),
-                new SetShooterState(shooter, ShooterState.INTAKE)),
-        });
+        new FluentTrigger.CommandBind(primaryController.button(OperatorConstants.kGamepadRightBumper), new SetShooterState(shooter, ShooterState.SHOOT)),
+        new FluentTrigger.CommandBind(primaryController.button(OperatorConstants.kGamepadLeftTrigger), new SetShooterState(shooter, ShooterState.INTAKE))
+    );
     new FluentTrigger(
         new SetFeederState(feeder, FeederState.IDLE),
-        new FluentTrigger.CommandBind[] {
-            new FluentTrigger.CommandBind(primaryController.button(OperatorConstants.kGamepadLeftBumper),
-                new SetFeederState(feeder, FeederState.SHOOT)),
-            new FluentTrigger.CommandBind(primaryController.button(OperatorConstants.kGamepadLeftTrigger),
-                new SetFeederState(feeder, FeederState.INTAKE)),
-        });
+        new FluentTrigger.CommandBind(primaryController.button(OperatorConstants.kGamepadLeftBumper), new SetFeederState(feeder, FeederState.SHOOT)),
+        new FluentTrigger.CommandBind(primaryController.button(OperatorConstants.kGamepadLeftTrigger), new SetFeederState(feeder, FeederState.INTAKE))
+    );
   }
 
   /**

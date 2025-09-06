@@ -12,7 +12,7 @@ public class FluentTrigger {
     private ArrayList<Integer> activeStateQueue;
     private CommandBind[] triggerCommandBindList;
 
-    public FluentTrigger(Command defaultCommand, CommandBind[] triggerCommandBindList) {
+    public FluentTrigger(Command defaultCommand, CommandBind... triggerCommandBindList) {
         this.triggerCommandBindList = triggerCommandBindList;
         this.defaultCommand = defaultCommand;
         
@@ -29,12 +29,7 @@ public class FluentTrigger {
         activeCommand = defaultCommand;
         activeCommand.schedule();
     }
-
-    @FunctionalInterface
-    public interface CommandCallback<EnumType> {
-        public void update(EnumType state);  
-    }
-
+    
     static public class CommandBind {
         Trigger trigger;
         Command command;
