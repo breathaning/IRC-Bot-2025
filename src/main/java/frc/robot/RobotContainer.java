@@ -77,16 +77,14 @@ public class RobotContainer {
     // cancelling on release.
     m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
 
-    new FluentTrigger(
-        new SetShooterState(shooter, ShooterState.IDLE),
-        new FluentTrigger.CommandBind(primaryController.button(OperatorConstants.kGamepadRightBumper), new SetShooterState(shooter, ShooterState.SHOOT)),
-        new FluentTrigger.CommandBind(primaryController.button(OperatorConstants.kGamepadLeftTrigger), new SetShooterState(shooter, ShooterState.INTAKE))
-    );
-    new FluentTrigger(
-        new SetFeederState(feeder, FeederState.IDLE),
-        new FluentTrigger.CommandBind(primaryController.button(OperatorConstants.kGamepadLeftBumper), new SetFeederState(feeder, FeederState.SHOOT)),
-        new FluentTrigger.CommandBind(primaryController.button(OperatorConstants.kGamepadLeftTrigger), new SetFeederState(feeder, FeederState.INTAKE))
-    );
+    new FluentTrigger()
+      .setDefault(new SetShooterState(shooter, ShooterState.IDLE))
+      .bind(primaryController.button(OperatorConstants.kGamepadRightBumper), new SetShooterState(shooter, ShooterState.SHOOT))
+      .bind(primaryController.leftTrigger(), new SetShooterState(shooter, ShooterState.INTAKE));
+    new FluentTrigger()
+      .setDefault(new SetFeederState(feeder, FeederState.IDLE))
+      .bind(primaryController.button(OperatorConstants.kGamepadLeftBumper), new SetFeederState(feeder, FeederState.SHOOT))
+      .bind(primaryController.leftTrigger(), new SetFeederState(feeder, FeederState.INTAKE));
   }
 
   /**

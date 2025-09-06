@@ -10,59 +10,65 @@ public class FluentTrigger {
     private Command activeCommand;
     private Command defaultCommand;
     private ArrayList<Integer> activeStateQueue;
-    private CommandBind[] triggerCommandBindList;
+    private ArrayList<CommandBind> triggerCommandBindList;
 
-    public FluentTrigger(Command defaultCommand, CommandBind... triggerCommandBindList) {
-        this.triggerCommandBindList = triggerCommandBindList;
-        this.defaultCommand = defaultCommand;
-        
+    public FluentTrigger() {
+        triggerCommandBindList = new ArrayList<CommandBind>();
         activeStateQueue = new ArrayList<Integer>();
-        
-        for (int i = 0; i < triggerCommandBindList.length; i++) {
-            int state = i;
-            CommandBind triggerCommandBind = triggerCommandBindList[state];
-            triggerCommandBind.command.end(false);
-            triggerCommandBind.trigger.onTrue(new InstantCommand(() -> addQueue(state)));
-            triggerCommandBind.trigger.onFalse(new InstantCommand(() -> removeQueue(state)));
-        }
-
-        activeCommand = defaultCommand;
-        activeCommand.schedule();
     }
-    
-    static public class CommandBind {
+
+    private class CommandBind {
         Trigger trigger;
         Command command;
-        public CommandBind(Trigger trigger, Command command) {
+
+        private CommandBind(Trigger trigger, Command command) {
             this.trigger = trigger;
             this.command = command;
         }
     }
 
+    public FluentTrigger setDefault(Command defaultCommand) {
+        this.activeCommand = defaultCommand;
+        this.defaultCommand = defaultCommand;
+        updateState();
+        return this;
+    }
+
+    public FluentTrigger bind(Trigger trigger, Command command) {
+        CommandBind triggerCommandBind = new CommandBind(trigger, command);
+        int state = triggerCommandBindList.size();
+        triggerCommandBind.trigger.onTrue(new InstantCommand(() -> addQueue(state)));
+        triggerCommandBind.trigger.onFalse(new InstantCommand(() -> removeQueue(state)));
+        triggerCommandBindList.add(triggerCommandBind);
+        return this;
+    }
+
     private void addQueue(int state) {
-        if (activeStateQueue.indexOf(state) >= 0) return;
+        if (activeStateQueue.indexOf(state) >= 0)
+            return;
         activeStateQueue.add(state);
         updateState();
     }
 
     private void removeQueue(int state) {
         int index = activeStateQueue.indexOf(state);
-        if (index < 0) return;
+        if (index < 0)
+            return;
         activeStateQueue.remove(index);
         updateState();
     }
 
     private void updateState() {
-        if (activeStateQueue.size() == 0) {
+        if (defaultCommand != null && activeStateQueue.size() == 0) {
             if (activeCommand != null) {
                 activeCommand.end(false);
             }
             defaultCommand.schedule();
             return;
         }
-        
+
         int activeState = activeStateQueue.get(activeStateQueue.size() - 1);
-        activeCommand = triggerCommandBindList[activeState].command;
+        activeCommand = triggerCommandBindList.get(activeState).command;
         activeCommand.schedule();
     }
 }
