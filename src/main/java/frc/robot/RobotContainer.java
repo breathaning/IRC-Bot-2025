@@ -80,11 +80,11 @@ public class RobotContainer {
     new FluentTrigger()
       .setDefault(new SetShooterState(shooter, ShooterState.IDLE))
       .bind(primaryController.button(OperatorConstants.kGamepadRightBumper), new SetShooterState(shooter, ShooterState.SHOOT))
-      .bind(primaryController.leftTrigger(), new SetShooterState(shooter, ShooterState.INTAKE));
+      .bind(primaryController.button(OperatorConstants.kGamepadLeftTrigger), new SetShooterState(shooter, ShooterState.INTAKE));
     new FluentTrigger()
       .setDefault(new SetFeederState(feeder, FeederState.IDLE))
       .bind(primaryController.button(OperatorConstants.kGamepadLeftBumper), new SetFeederState(feeder, FeederState.SHOOT))
-      .bind(primaryController.leftTrigger(), new SetFeederState(feeder, FeederState.INTAKE));
+      .bind(primaryController.button(OperatorConstants.kGamepadLeftTrigger), new SetFeederState(feeder, FeederState.INTAKE));
   }
 
   /**
