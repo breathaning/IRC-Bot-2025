@@ -16,6 +16,7 @@ public final class Constants {
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
     // logitech and xbox controllers have different mappings
+    // xbox controllers have weird scalar input handling for triggers
     public static final int kGamepadRightBumper = 6;
     public static final int kGamepadRightTrigger = 8;
     public static final int kGamepadLeftBumper = 5;
