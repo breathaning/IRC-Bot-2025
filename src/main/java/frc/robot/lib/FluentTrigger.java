@@ -21,7 +21,7 @@ public class FluentTrigger {
         for (int i = 0; i < triggerCommandBindList.length; i++) {
             int state = i;
             CommandBind triggerCommandBind = triggerCommandBindList[state];
-            triggerCommandBind.command.cancel();
+            triggerCommandBind.command.end(false);
             triggerCommandBind.trigger.onTrue(new InstantCommand(() -> addQueue(state)));
             triggerCommandBind.trigger.onFalse(new InstantCommand(() -> removeQueue(state)));
         }
@@ -55,7 +55,7 @@ public class FluentTrigger {
     private void updateState() {
         if (activeStateQueue.size() == 0) {
             if (activeCommand != null) {
-                activeCommand.cancel();
+                activeCommand.end(false);
             }
             defaultCommand.schedule();
             return;
