@@ -15,24 +15,20 @@ package frc.robot;
 public final class Constants {
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
+    // logitech and xbox controllers have different mappings
+    public static final int kGamepadRightBumper = 6;
+    public static final int kGamepadRightTrigger = 8;
+    public static final int kGamepadLeftBumper = 5;
+    public static final int kGamepadLeftTrigger = 7;
+    public static final int kGamepadLeftJoystickAxis = 1; // 1 on logitech and xbox controller
+    public static final int kGamepadRightJoystickAxis = 5; // 3 on logitech controller, 5 on xbox controller
+    public static final double kGamepadJoystickDeadzone = 0.25;
+    public static final double kGamepadJoystickScalar = 0.5;
+    public static final boolean kGamepadJoystickInverse = false;
   }
   public static class DrivetrainConstants {
     public static final int kLeftMotorId = 11;
     public static final int kRightMotorId = 4;
-  }
-  public static class GamepadConstants {
-    // logitech and xbox controllers have different mappings
-    public static final int kRightBumper = 6;
-    public static final int kRightTrigger = 8;
-    public static final int kLeftBumper = 5;
-    public static final int kLeftTrigger = 7;
-    public static final int kLeftJoystickAxis = 1; // 1 on logitech and xbox controller
-    public static final int kRightJoystickAxis = 5; // 3 on logitech controller, 5 on xbox controller
-  }
-  public static class DriveConstants {
-    public static final double kJoystickDeadzone = 0.25;
-    public static final double kMotorWheelSpeedScalar = 0.5;
-    public static final boolean kMotorSpeedInverse = false;
   }
   public static class ShooterConstants {
     public static enum ShooterState {

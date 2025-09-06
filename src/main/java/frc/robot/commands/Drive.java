@@ -3,7 +3,7 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import frc.robot.Constants;
+import frc.robot.Constants.OperatorConstants;
 import frc.robot.subsystems.Drivetrain;
 
 public class Drive extends Command {
@@ -18,9 +18,9 @@ public class Drive extends Command {
     }
 
     private double inputToSpeed(double input) {
-        if (Math.abs(input) < Constants.DriveConstants.kJoystickDeadzone) return 0;
-        double speed = input * Constants.DriveConstants.kMotorWheelSpeedScalar;
-        if (Constants.DriveConstants.kMotorSpeedInverse) {
+        if (Math.abs(input) < OperatorConstants.kGamepadJoystickDeadzone) return 0;
+        double speed = input * OperatorConstants.kGamepadJoystickScalar;
+        if (OperatorConstants.kGamepadJoystickInverse) {
             speed *= -1;
         }
         return speed;
@@ -28,8 +28,8 @@ public class Drive extends Command {
 
     @Override
     public void execute() {
-        double leftSpeed = inputToSpeed(controller.getRawAxis(Constants.GamepadConstants.kLeftJoystickAxis));
-        double rightSpeed = -inputToSpeed(controller.getRawAxis(Constants.GamepadConstants.kRightJoystickAxis));
+        double leftSpeed = inputToSpeed(controller.getRawAxis(OperatorConstants.kGamepadLeftJoystickAxis));
+        double rightSpeed = -inputToSpeed(controller.getRawAxis(OperatorConstants.kGamepadRightJoystickAxis));
         drivetrain.tankDrive(leftSpeed, rightSpeed);
     }
 }

@@ -4,7 +4,6 @@
 
 package frc.robot;
 
-import frc.robot.Constants.GamepadConstants;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.Constants.ShooterConstants.FeederState;
 import frc.robot.Constants.ShooterConstants.ShooterState;
@@ -35,8 +34,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
 
-  private final CommandXboxController primaryController = new CommandXboxController(
-      Constants.OperatorConstants.kDriverControllerPort);
+  private final CommandXboxController primaryController = new CommandXboxController(Constants.OperatorConstants.kDriverControllerPort);
   private final Drivetrain drivetrain = new Drivetrain();
   private final Drive drive = new Drive(drivetrain, primaryController);
   private final Shooter shooter = new Shooter();
@@ -79,26 +77,20 @@ public class RobotContainer {
     // cancelling on release.
     m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
 
-    // primaryController.button(6).whileTrue(new SetShooterState(shooter, ShooterState.SHOOT)); // right bumper
-    // primaryController.button(7).whileTrue(new ParallelCommandGroup(
-    //     new SetShooterState(shooter, ShooterState.INTAKE),
-    //     new SetFeederState(feeder, FeederState.INTAKE))); // left trigger
-    // primaryController.button(5).whileTrue(new SetFeederState(feeder, FeederState.SHOOT)); // left bumper
-
     new FluentTrigger(
         new SetShooterState(shooter, ShooterState.IDLE),
         new FluentTrigger.CommandBind[] {
-            new FluentTrigger.CommandBind(primaryController.button(GamepadConstants.kRightBumper),
+            new FluentTrigger.CommandBind(primaryController.button(OperatorConstants.kGamepadRightBumper),
                 new SetShooterState(shooter, ShooterState.SHOOT)),
-            new FluentTrigger.CommandBind(primaryController.button(GamepadConstants.kLeftTrigger),
+            new FluentTrigger.CommandBind(primaryController.button(OperatorConstants.kGamepadLeftTrigger),
                 new SetShooterState(shooter, ShooterState.INTAKE)),
         });
     new FluentTrigger(
         new SetFeederState(feeder, FeederState.IDLE),
         new FluentTrigger.CommandBind[] {
-            new FluentTrigger.CommandBind(primaryController.button(GamepadConstants.kLeftBumper),
+            new FluentTrigger.CommandBind(primaryController.button(OperatorConstants.kGamepadLeftBumper),
                 new SetFeederState(feeder, FeederState.SHOOT)),
-            new FluentTrigger.CommandBind(primaryController.button(GamepadConstants.kLeftTrigger),
+            new FluentTrigger.CommandBind(primaryController.button(OperatorConstants.kGamepadLeftTrigger),
                 new SetFeederState(feeder, FeederState.INTAKE)),
         });
   }
