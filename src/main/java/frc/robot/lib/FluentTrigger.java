@@ -59,11 +59,13 @@ public class FluentTrigger {
     }
 
     private void updateState() {
-        if (defaultCommand != null && activeStateQueue.size() == 0) {
+        if (activeStateQueue.size() == 0) {
             if (activeCommand != null) {
-                activeCommand.end(false);
+                activeCommand.cancel();
             }
-            defaultCommand.schedule();
+            if (defaultCommand != null) {
+                defaultCommand.schedule();
+            }
             return;
         }
 

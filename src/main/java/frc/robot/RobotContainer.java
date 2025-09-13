@@ -5,17 +5,14 @@
 package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
-import frc.robot.Constants.ShooterConstants.FeederState;
-import frc.robot.Constants.ShooterConstants.ShooterState;
 import frc.robot.commands.Autos;
 import frc.robot.commands.Drive;
 import frc.robot.commands.ExampleCommand;
-import frc.robot.commands.SetFeederState;
-import frc.robot.commands.SetShooterState;
+import frc.robot.commands.FeedShooter;
+import frc.robot.commands.LaunchShooter;
 import frc.robot.lib.FluentTrigger;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.ExampleSubsystem;
-import frc.robot.subsystems.Feeder;
 import frc.robot.subsystems.Shooter;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -38,7 +35,6 @@ public class RobotContainer {
   private final Drivetrain drivetrain = new Drivetrain();
   private final Drive drive = new Drive(drivetrain, primaryController);
   private final Shooter shooter = new Shooter();
-  private final Feeder feeder = new Feeder();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController = new CommandXboxController(
@@ -78,13 +74,8 @@ public class RobotContainer {
     m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
 
     new FluentTrigger()
-      .setDefault(new SetShooterState(shooter, ShooterState.IDLE))
-      .bind(primaryController.button(OperatorConstants.kGamepadRightBumper), new SetShooterState(shooter, ShooterState.SHOOT))
-      .bind(primaryController.button(OperatorConstants.kGamepadLeftTrigger), new SetShooterState(shooter, ShooterState.INTAKE));
-    new FluentTrigger()
-      .setDefault(new SetFeederState(feeder, FeederState.IDLE))
-      .bind(primaryController.button(OperatorConstants.kGamepadLeftBumper), new SetFeederState(feeder, FeederState.SHOOT))
-      .bind(primaryController.button(OperatorConstants.kGamepadLeftTrigger), new SetFeederState(feeder, FeederState.INTAKE));
+      .bind(primaryController.button(OperatorConstants.kGamepadLeftBumper), new FeedShooter(shooter))
+      .bind(primaryController.button(OperatorConstants.kGamepadRightBumper), new LaunchShooter(shooter));
   }
 
   /**

@@ -32,6 +32,8 @@ public final class Constants {
     public static final int kRightMotorId = 4;
   }
   public static class ShooterConstants {
+    public static final int kLauncherMotorId = 0;
+    public static final int kFeederMotorId = 1;
     public static enum ShooterState {
       SHOOT(1), INTAKE(-0.2), IDLE(0);
 
