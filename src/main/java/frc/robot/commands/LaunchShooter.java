@@ -19,7 +19,7 @@ public class LaunchShooter extends Command {
     public void initialize() {
         shooter.setLaunchSpeed(0);
         shooter.setFeedSpeed(0);
-        Shooter.launchMotor.setControl(new MotionMagicVelocityVoltage(2).withVelocity(ShooterState.LAUNCH.launchSpeed));
+        Shooter.launchMotor.setControl(new MotionMagicVelocityVoltage(ShooterState.LAUNCH.launchSpeed));
     }
 
     @Override
