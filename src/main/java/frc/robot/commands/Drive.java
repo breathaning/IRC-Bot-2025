@@ -1,17 +1,17 @@
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.subsystems.Drivetrain;
 
 public class Drive extends Command {
     Drivetrain drivetrain;
-    CommandXboxController controller;
+    GenericHID controller;
     Joystick rightJoystick;
 
-    public Drive(Drivetrain drivetrain, CommandXboxController controller) {
+    public Drive(Drivetrain drivetrain, GenericHID controller) {
         this.drivetrain = drivetrain;
         this.controller = controller;
         addRequirements(drivetrain);
@@ -28,8 +28,8 @@ public class Drive extends Command {
 
     @Override
     public void execute() {
-        double leftSpeed = inputToSpeed(controller.getRawAxis(OperatorConstants.kGamepadLeftJoystickAxis));
-        double rightSpeed = -inputToSpeed(controller.getRawAxis(OperatorConstants.kGamepadRightJoystickAxis));
+        double leftSpeed = inputToSpeed(controller.getRawAxis(OperatorConstants.kGamepadLeftJoystickAxisY));
+        double rightSpeed = -inputToSpeed(controller.getRawAxis(OperatorConstants.kGamepadRightJoystickAxisY));
         drivetrain.tankDrive(leftSpeed, rightSpeed);
     }
 }

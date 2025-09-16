@@ -21,8 +21,8 @@ public final class Constants {
     public static final int kGamepadRightTrigger = 8;
     public static final int kGamepadLeftBumper = 5;
     public static final int kGamepadLeftTrigger = 7;
-    public static final int kGamepadLeftJoystickAxis = 1; // 1 on logitech and xbox controller
-    public static final int kGamepadRightJoystickAxis = 5; // 3 on logitech controller, 5 on xbox controller
+    public static final int kGamepadLeftJoystickAxisY = 1; // 1 on logitech and xbox controller
+    public static final int kGamepadRightJoystickAxisY = 5; // 3 on logitech controller, 5 on xbox controller
     public static final double kGamepadJoystickDeadzone = 0.25;
     public static final double kGamepadJoystickScalar = 0.5;
     public static final boolean kGamepadJoystickInverse = false;

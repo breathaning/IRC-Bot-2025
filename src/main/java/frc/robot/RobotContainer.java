@@ -14,6 +14,7 @@ import frc.robot.lib.FluentTrigger;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.Shooter;
+import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -31,7 +32,8 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
 
-  private final CommandXboxController primaryController = new CommandXboxController(Constants.OperatorConstants.kDriverControllerPort);
+  private final GenericHID primaryController = new GenericHID(Constants.OperatorConstants.kDriverControllerPort);
+
   private final Drivetrain drivetrain = new Drivetrain();
   private final Drive drive = new Drive(drivetrain, primaryController);
   private final Shooter shooter = new Shooter();
@@ -72,10 +74,9 @@ public class RobotContainer {
     // pressed,
     // cancelling on release.
     m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
-
     new FluentTrigger()
-      .bind(primaryController.button(OperatorConstants.kGamepadLeftBumper), new FeedShooter(shooter))
-      .bind(primaryController.button(OperatorConstants.kGamepadRightBumper), new LaunchShooter(shooter));
+      .bind(new Trigger(() -> primaryController.getRawButton(OperatorConstants.kGamepadLeftBumper)), new FeedShooter(shooter))
+      .bind(new Trigger(() -> primaryController.getRawButton(OperatorConstants.kGamepadRightBumper)), new LaunchShooter(shooter));
   }
 
   /**
