@@ -32,22 +32,17 @@ public final class Constants {
     public static final int kRightMotorId = 4;
   }
   public static class ShooterConstants {
-    public static final int kLauncherMotorId = 0;
-    public static final int kFeederMotorId = 1;
+    public static final int kLaunchMotorId = 0;
+    public static final int kFeedMotorId = 1;
+    public static final double kRevLaunchThreshold = 0.9;
     public static enum ShooterState {
-      SHOOT(1), INTAKE(-0.2), IDLE(0);
+      LAUNCH(1, 0.1), FEED(-0.2, -0.2), IDLE(0, 0);
 
-      public double motorSpeed;
-      private ShooterState(double motorSpeed) {
-        this.motorSpeed = motorSpeed;
-      }
-    }
-    public static enum FeederState {
-      SHOOT(0.1), INTAKE(-0.2), IDLE(0);
-
-      public double motorSpeed;
-      private FeederState(double motorSpeed) {
-        this.motorSpeed = motorSpeed;
+      public double launchSpeed;
+      public double feedSpeed;
+      private ShooterState(double launchSpeed, double feedSpeed) {
+        this.launchSpeed = launchSpeed;
+        this.feedSpeed = feedSpeed;
       }
     }
   }

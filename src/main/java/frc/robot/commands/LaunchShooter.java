@@ -2,6 +2,8 @@ package frc.robot.commands;
 
 import com.ctre.phoenix6.controls.MotionMagicVelocityVoltage;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants.ShooterConstants;
+import frc.robot.Constants.ShooterConstants.ShooterState;
 import frc.robot.subsystems.Shooter;
 
 public class LaunchShooter extends Command {
@@ -15,18 +17,21 @@ public class LaunchShooter extends Command {
 
     @Override
     public void initialize() {
-        shooter.setLauncherSpeed(0.5);
-        shooter.setFeederSpeed(0);
+        shooter.setLaunchSpeed(0);
+        shooter.setFeedSpeed(0);
+        Shooter.launchMotor.setControl(new MotionMagicVelocityVoltage(2).withVelocity(ShooterState.LAUNCH.launchSpeed));
     }
 
     @Override
     public void execute() {
-        // maybe just use the builtin wpi stuff idk what im doing 
-        Shooter.launcherMotor.setControl(new MotionMagicVelocityVoltage(0.2).withSlot(0));
+        double launcherVelocity = Shooter.launchMotor.getClosedLoopError().getValueAsDouble();
+        if (launcherVelocity / ShooterState.LAUNCH.launchSpeed >= ShooterConstants.kRevLaunchThreshold) {
+            shooter.setFeedSpeed(ShooterState.LAUNCH.feedSpeed);
+        }
     }
 
     @Override
     public void end(boolean interrupted) {
-        shooter.setSpeed(0);
+        shooter.setState(ShooterState.IDLE);
     }
 }

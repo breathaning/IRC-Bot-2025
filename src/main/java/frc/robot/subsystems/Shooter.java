@@ -7,38 +7,42 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ShooterConstants;
+import frc.robot.Constants.ShooterConstants.ShooterState;
 
 public class Shooter extends SubsystemBase {
-    public static final TalonFX launcherMotor = new TalonFX(ShooterConstants.kLauncherMotorId);
-    public static final SparkMax feederMotor = new SparkMax(ShooterConstants.kFeederMotorId, MotorType.kBrushless);
+    public static final TalonFX launchMotor = new TalonFX(ShooterConstants.kLaunchMotorId);
+    public static final SparkMax feedMotor = new SparkMax(ShooterConstants.kFeedMotorId, MotorType.kBrushless);
 
     public static final TalonFXConfiguration launcherConfig = new TalonFXConfiguration();
     {   
         // idk how to tune values
-        launcherConfig.Slot0.kP = 0.15;
+        // this is straight from the documentation
+        launcherConfig.Slot0.kS = 0.25;
+        launcherConfig.Slot0.kV = 0.12;
+        launcherConfig.Slot0.kA = 0.01;
+        launcherConfig.Slot0.kP = 4.8;
         launcherConfig.Slot0.kI = 0;
-        launcherConfig.Slot0.kD = 0.5;
+        launcherConfig.Slot0.kD = 0.1;
         launcherConfig.MotionMagic.MotionMagicCruiseVelocity = 10.0;
-        launcherConfig.MotionMagic.MotionMagicAcceleration = 100.0;
-        launcherConfig.MotionMagic.MotionMagicJerk = 200.0;
+        launcherConfig.MotionMagic.MotionMagicAcceleration = 10.0;
 
-        launcherMotor.getConfigurator().apply(launcherConfig);
+        launchMotor.getConfigurator().apply(launcherConfig);
     }
     
     public Shooter() {
         
     }
 
-    public void setSpeed(double speed) {
-        launcherMotor.set(speed);
-        feederMotor.set(speed);
+    public void setState(ShooterState shooterState) {
+        setLaunchSpeed(shooterState.launchSpeed);
+        setFeedSpeed(shooterState.feedSpeed);
     }
 
-    public void setLauncherSpeed(double speed) {
-        launcherMotor.set(speed);
+    public void setLaunchSpeed(double speed) {
+        launchMotor.set(speed);
     }
 
-    public void setFeederSpeed(double speed) {
-        feederMotor.set(speed);
+    public void setFeedSpeed(double speed) {
+        feedMotor.set(speed);
     }
 }
