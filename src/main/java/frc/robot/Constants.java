@@ -22,7 +22,7 @@ public final class Constants {
     public static final int kGamepadLeftBumper = 5;
     public static final int kGamepadLeftTrigger = 7;
     public static final int kGamepadLeftJoystickAxisY = 1; // 1 on logitech and xbox controller
-    public static final int kGamepadRightJoystickAxisY = 5; // 3 on logitech controller, 5 on xbox controller
+    public static final int kGamepadRightJoystickAxisY = 3; // 3 on logitech controller, 5 on xbox controller
     public static final double kGamepadJoystickDeadzone = 0.25;
     public static final double kGamepadJoystickScalar = 0.5;
     public static final boolean kGamepadJoystickInverse = false;
@@ -36,7 +36,7 @@ public final class Constants {
     public static final int kFeedMotorId = 1;
     public static final double kRevLaunchThreshold = 0.9;
     public static enum ShooterState {
-      LAUNCH(1, 0.1), FEED(-0.2, -0.2), IDLE(0, 0);
+      LAUNCH(100, 0.1), FEED(-0.2, -0.2), IDLE(0, 0);
 
       public double launchSpeed;
       public double feedSpeed;

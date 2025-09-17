@@ -28,8 +28,8 @@ public class Drive extends Command {
 
     @Override
     public void execute() {
-        double leftSpeed = inputToSpeed(controller.getRawAxis(OperatorConstants.kGamepadLeftJoystickAxisY));
-        double rightSpeed = -inputToSpeed(controller.getRawAxis(OperatorConstants.kGamepadRightJoystickAxisY));
+        double leftSpeed = -inputToSpeed(controller.getRawAxis(OperatorConstants.kGamepadLeftJoystickAxisY));
+        double rightSpeed = inputToSpeed(controller.getRawAxis(OperatorConstants.kGamepadRightJoystickAxisY));
         drivetrain.tankDrive(leftSpeed, rightSpeed);
     }
 }
