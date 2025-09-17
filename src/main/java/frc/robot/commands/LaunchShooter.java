@@ -16,7 +16,7 @@ public class LaunchShooter extends Command {
     @Override
     public void initialize() {
         shooter.setFeedSpeed(0);
-        shooter.setLaunchSpeed(ShooterState.LAUNCH.feedSpeed);
+        shooter.setLaunchSpeed(ShooterState.LAUNCH.launchSpeed);
     }
 
     @Override
