@@ -1,6 +1,6 @@
 package frc.robot.subsystems;
 
-import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.revrobotics.spark.SparkMax;
@@ -14,17 +14,17 @@ public class Shooter extends SubsystemBase {
     private final TalonFX launchMotor = new TalonFX(ShooterConstants.kLaunchMotorId);
     private final SparkMax feedMotor = new SparkMax(ShooterConstants.kFeedMotorId, MotorType.kBrushless);
 
-    private final TalonFXConfiguration launcherConfig = new TalonFXConfiguration();
+    private final Slot0Configs launcherConfig = new Slot0Configs();
     private final VelocityVoltage velocityVoltage = new VelocityVoltage(0).withSlot(0);
     {   
         // idk how to tune values
         // this is straight from the documentation
-        launcherConfig.Slot0.kS = 0;
-        launcherConfig.Slot0.kV = 0;
-        launcherConfig.Slot0.kA = 0;
-        launcherConfig.Slot0.kP = 0.1;
-        launcherConfig.Slot0.kI = 0;
-        launcherConfig.Slot0.kD = 0.1;
+        launcherConfig.kS = 0;
+        launcherConfig.kV = 0;
+        launcherConfig.kA = 0;
+        launcherConfig.kP = 0.01;
+        launcherConfig.kI = 0;
+        launcherConfig.kD = 0.1;
         // launcherConfig.MotionMagic.MotionMagicCruiseVelocity = 10.0;
         // launcherConfig.MotionMagic.MotionMagicAcceleration = 10.0;
 

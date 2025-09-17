@@ -6,7 +6,7 @@ import frc.robot.Constants.ShooterConstants.ShooterState;
 import frc.robot.subsystems.Shooter;
 
 public class LaunchShooter extends Command {
-    Shooter shooter;
+    private final Shooter shooter;
 
     public LaunchShooter(Shooter shooter) {
         this.shooter = shooter;
@@ -22,6 +22,7 @@ public class LaunchShooter extends Command {
     @Override
     public void execute() {
         double launcherVelocity = shooter.getLaunchSpeed();
+        System.out.println(launcherVelocity);
         if (launcherVelocity / ShooterState.LAUNCH.launchSpeed >= ShooterConstants.kRevLaunchThreshold) {
             shooter.setFeedSpeed(ShooterState.LAUNCH.feedSpeed);
         }
