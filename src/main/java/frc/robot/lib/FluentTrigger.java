@@ -60,10 +60,10 @@ public class FluentTrigger {
 
     private void updateState() {
         if (activeStateQueue.size() == 0) {
-            if (activeCommand != null) {
+            if (activeCommand != null && activeCommand.isScheduled() == true) {
                 activeCommand.cancel();
             }
-            if (defaultCommand != null) {
+            if (defaultCommand != null && defaultCommand.isScheduled() == false) {
                 defaultCommand.schedule();
             }
             return;
@@ -71,6 +71,8 @@ public class FluentTrigger {
 
         int activeState = activeStateQueue.get(activeStateQueue.size() - 1);
         activeCommand = triggerCommandBindList.get(activeState).command;
-        activeCommand.schedule();
+        if (activeCommand.isScheduled() == false) {
+            activeCommand.schedule();
+        }
     }
 }

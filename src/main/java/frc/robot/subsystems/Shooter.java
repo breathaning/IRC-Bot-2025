@@ -22,7 +22,7 @@ public class Shooter extends SubsystemBase {
         launcherConfig.kS = 0;
         launcherConfig.kV = 0;
         launcherConfig.kA = 0;
-        launcherConfig.kP = 0.01;
+        launcherConfig.kP = 0.1;
         launcherConfig.kI = 0;
         launcherConfig.kD = 0.1;
         // launcherConfig.MotionMagic.MotionMagicCruiseVelocity = 10.0;
@@ -49,6 +49,6 @@ public class Shooter extends SubsystemBase {
     }
 
     public double getLaunchSpeed() {
-        return launchMotor.getClosedLoopError().getValueAsDouble();
+        return launchMotor.getVelocity().getValueAsDouble();
     }
 }
